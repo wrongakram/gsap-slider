@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { TweenLite, Power3 } from "gsap";
+import CSSRulePlugin from "gsap/CSSRulePlugin";
 
 import leftArrow from "./assets/arrow-left.svg";
 import rightArrow from "./assets/arrow-right.svg";
@@ -48,149 +49,110 @@ function App() {
     });
   }, []);
 
+  const slideLeft = (index, duration, multiplied = 1) => {
+    TweenLite.to(imageList.children[index], duration, {
+      x: -imageWidth * multiplied,
+      ease: Power3.easeOut
+    });
+  };
+
+  const slideRight = (index, duration, multiplied = 1) => {
+    TweenLite.to(imageList.children[index], duration, {
+      x: imageWidth * multiplied,
+      ease: Power3.easeOut
+    });
+  };
+
+  const scale = (index, duration) => {
+    TweenLite.from(imageList.children[index], duration, {
+      scale: 1.2,
+      ease: Power3.easeOut
+    });
+  };
+
+  const reorder = (index, duration, x = 0) => {
+    TweenLite.to(imageList.children[index], duration, {
+      x: x,
+      ease: Power3.easeOut
+    });
+  };
+
+  const fadeOut = (index, duration) => {
+    TweenLite.to(testimonialList.children[index], duration, {
+      opacity: 0
+    });
+  };
+
+  const fadeIn = (index, duration) => {
+    TweenLite.to(testimonialList.children[index], duration, {
+      opacity: 1,
+      delay: 1
+    });
+  };
+
   const nextSlide = () => {
     if (imageList.children[0].classList.contains("active")) {
       setState({ isActive1: false, isActive2: true });
-
-      //Slide 1 Image
-      TweenLite.to(imageList.children[0], 1, {
-        x: -imageWidth,
-        ease: Power3.easeOut
-      });
-      //Slide 2 Image
-      TweenLite.to(imageList.children[1], 1, {
-        x: -imageWidth,
-        ease: Power3.easeOut
-      });
-      TweenLite.from(imageList.children[1], 1, {
-        scale: 1.2,
-        ease: Power3.easeOut
-      });
-      TweenLite.to(imageList.children[2], 1, {
-        x: -imageWidth,
-        ease: Power3.easeOut
-      });
-      TweenLite.to(imageList.children[2], 0, { x: 0 });
-      // Content transition
-      //Slide 2 Content
-      TweenLite.to(testimonialList.children[0], 1, {
-        opacity: 0
-      });
-      TweenLite.to(testimonialList.children[1], 1, {
-        opacity: 1,
-        delay: 1
-      });
+      slideLeft(0, 1);
+      slideLeft(1, 1);
+      scale(1, 1);
+      slideLeft(2, 1);
+      reorder(2, 0);
+      fadeOut(0, 1);
+      fadeIn(1, 1);
     } else if (imageList.children[1].classList.contains("active")) {
       setState({ isActive2: false, isActive3: true });
-      TweenLite.to(imageList.children[0], 1, {
-        x: imageWidth,
-        ease: Power3.easeOut
-      });
-      TweenLite.to(imageList.children[1], 1, {
-        x: -imageWidth * 2,
-        ease: Power3.easeOut
-      });
-      TweenLite.to(imageList.children[2], 1, {
-        x: -imageWidth * 2,
-        ease: Power3.easeOut
-      });
-
+      slideRight(0, 1);
+      slideLeft(1, 1, 2);
+      slideLeft(2, 1, 2);
+      scale(2, 1);
       //content transition
-
-      TweenLite.to(testimonialList.children[1], 1, {
-        opacity: 0
-      });
-      TweenLite.to(testimonialList.children[2], 1, {
-        opacity: 1,
-        delay: 1
-      });
+      fadeOut(1, 1);
+      fadeIn(2, 1);
     } else if (imageList.children[2].classList.contains("active")) {
       setState({ isActive1: true, isActive3: false });
-      TweenLite.to(imageList.children[2], 1, {
-        x: -imageWidth * 3,
-        ease: Power3.easeOut
-      });
-      TweenLite.to(imageList.children[0], 1, { x: 0, ease: Power3.easeOut });
-      TweenLite.to(imageList.children[1], 0, { x: 0 });
-
+      slideLeft(2, 1, 3);
+      reorder(0, 1);
+      reorder(1, 0);
+      scale(0, 1);
       //content transition
-
-      TweenLite.to(testimonialList.children[2], 1, {
-        opacity: 0
-      });
-      TweenLite.to(testimonialList.children[0], 1, {
-        opacity: 1,
-        delay: 1
-      });
+      fadeOut(2, 1);
+      fadeIn(0, 1);
     }
   };
 
   const prevSlide = () => {
     if (imageList.children[0].classList.contains("active")) {
       setState({ isActive1: false, isActive3: true });
-      TweenLite.to(imageList.children[2], 0, { x: -imageWidth * 3 });
-      TweenLite.to(imageList.children[2], 1, {
-        x: -imageWidth * 2,
-        ease: Power3.easeOut
-      });
-      TweenLite.to(imageList.children[0], 1, {
-        x: imageWidth,
-        ease: Power3.easeOut
-      });
-      TweenLite.to(imageList.children[0].nextSibling, 1, {
-        x: 296,
-        ease: Power3.easeOut
-      });
+
+      reorder(2, 0, -imageWidth * 3);
+      slideLeft(2, 1, 2);
+      scale(2, 1);
+      slideRight(0, 1);
+      slideRight(1, 1);
 
       //content transtion
-      TweenLite.to(testimonialList.children[0], 1, {
-        opacity: 0
-      });
-      TweenLite.to(testimonialList.children[2], 1, {
-        opacity: 1,
-        delay: 1
-      });
+      fadeOut(0, 1);
+      fadeIn(2, 1);
     } else if (imageList.children[1].classList.contains("active")) {
       setState({ isActive2: false, isActive1: true });
-      TweenLite.to(imageList.children[0], 0, { x: -imageWidth });
-      TweenLite.to(imageList.children[0], 1, { x: 0, ease: Power3.easeOut });
-      TweenLite.to(imageList.children[0].nextSibling, 1, {
-        x: 0,
-        ease: Power3.easeOut
-      });
-      TweenLite.to(imageList.children[1].nextSibling, 1, {
-        x: imageWidth * 2,
-        ease: Power3.easeOut
-      });
-
+      slideLeft(0, 0);
+      slideRight(0, 1, 0);
+      slideRight(1, 1, 0);
+      slideRight(2, 1, 2);
+      scale(0, 1);
       //content transtion
-      TweenLite.to(testimonialList.children[1], 1, {
-        opacity: 0
-      });
-      TweenLite.to(testimonialList.children[0], 1, {
-        opacity: 1,
-        delay: 1
-      });
+      fadeOut(1, 1);
+      fadeIn(0, 1);
     } else if (imageList.children[2].classList.contains("active")) {
       setState({ isActive2: true, isActive3: false });
-      TweenLite.to(imageList.children[2], 1, {
-        x: -imageWidth,
-        ease: Power3.easeOut
-      });
-      TweenLite.to(imageList.children[1], 0, { x: -imageWidth * 2 });
-      TweenLite.to(imageList.children[1], 1, {
-        x: -imageWidth,
-        ease: Power3.easeOut
-      });
-
+      slideLeft(2, 1);
+      slideLeft(1, 0, 2);
+      slideLeft(1, 1);
+      scale(1, 1);
+      fadeOut(2, 1);
+      fadeIn(1, 1);
       //content transtion
-      TweenLite.to(testimonialList.children[2], 1, {
-        opacity: 0
-      });
-      TweenLite.to(testimonialList.children[1], 1, {
-        opacity: 1,
-        delay: 1
-      });
     }
   };
 

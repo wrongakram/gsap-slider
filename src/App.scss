@@ -15,13 +15,13 @@ body {
   &:after {
     content: "";
     position: absolute;
-    width: 1440px;
-    height: 700px;
+    width: 900px;
+    height: 550px;
     background: #f2f2f6;
     z-index: -10;
-    left: 0;
+    right: 0;
     bottom: 0;
-    opacity: 0.4;
+    opacity: 0.8;
   }
   .testimonial-container {
     width: 1280px;
@@ -58,15 +58,17 @@ body {
         display: flex;
         align-items: center;
         justify-content: center;
+
         &:after {
           content: "";
           position: absolute;
-          width: 340px;
-          height: 460px;
+          width: 200px;
+          height: 200px;
           background: #3f56da;
           z-index: -9;
-          left: 100px;
+          left: 140px;
           top: 0;
+          border-radius: 100%;
         }
         ul {
           display: flex;
@@ -74,6 +76,8 @@ body {
           overflow: hidden;
           height: 460px;
           width: 340px;
+          box-shadow: 0px 0px 40px rgba(0, 0, 10, 0.25);
+          border-radius: 0px;
           li {
             height: 460px;
             width: 340px;
@@ -102,6 +106,42 @@ body {
             align-items: center;
             position: absolute;
             opacity: 0;
+            &:nth-child(1) {
+              &:after {
+                position: absolute;
+                content: "";
+                height: 12px;
+                width: 310px;
+                background: $text;
+                opacity: 0.3;
+                left: 0;
+                top: 206px;
+              }
+            }
+            &:nth-child(2) {
+              &:after {
+                position: absolute;
+                content: "";
+                height: 12px;
+                width: 148px;
+                background: $text;
+                opacity: 0.3;
+                left: 54px;
+                top: 126px;
+              }
+            }
+            &:nth-child(3) {
+              &:after {
+                position: absolute;
+                content: "";
+                height: 12px;
+                width: 280px;
+                background: $text;
+                opacity: 0.3;
+                left: 144px;
+                top: 166px;
+              }
+            }
             .content-inner {
               width: 500px;
               .quote {
