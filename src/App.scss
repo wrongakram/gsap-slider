@@ -18,10 +18,10 @@ body {
     width: 900px;
     height: 550px;
     background: #f2f2f6;
-    z-index: -10;
     right: 0;
     bottom: 0;
     opacity: 0.8;
+    z-index: -10;
   }
   .testimonial-container {
     width: 1280px;
@@ -44,7 +44,6 @@ body {
       }
       &.right {
         right: 0;
-        top: 0;
       }
     }
     .inner {
@@ -56,19 +55,18 @@ body {
         width: 500px;
         height: 600px;
         display: flex;
-        align-items: center;
         justify-content: center;
-
+        align-items: center;
         &:after {
           content: "";
           position: absolute;
           width: 200px;
           height: 200px;
           background: #3f56da;
-          z-index: -9;
           left: 140px;
           top: 0;
           border-radius: 100%;
+          z-index: -9;
         }
         ul {
           display: flex;
@@ -77,7 +75,6 @@ body {
           height: 460px;
           width: 340px;
           box-shadow: 0px 0px 40px rgba(0, 0, 10, 0.25);
-          border-radius: 0px;
           li {
             height: 460px;
             width: 340px;
@@ -108,8 +105,8 @@ body {
             opacity: 0;
             &:nth-child(1) {
               &:after {
-                position: absolute;
                 content: "";
+                position: absolute;
                 height: 12px;
                 width: 310px;
                 background: $text;
@@ -120,8 +117,8 @@ body {
             }
             &:nth-child(2) {
               &:after {
-                position: absolute;
                 content: "";
+                position: absolute;
                 height: 12px;
                 width: 148px;
                 background: $text;
@@ -132,8 +129,8 @@ body {
             }
             &:nth-child(3) {
               &:after {
-                position: absolute;
                 content: "";
+                position: absolute;
                 height: 12px;
                 width: 280px;
                 background: $text;
